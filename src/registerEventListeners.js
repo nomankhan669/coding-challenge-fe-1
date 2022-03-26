@@ -23,3 +23,7 @@ addListener('keyup', '[data-element="addTodoInput"]', (e) => {
   if (e.keyCode === 13)
     document.querySelector('[data-element="addTodoButton"]').click();
 })
+
+addListener('click', '[data-element="todoFilter"]', (e) => {
+  store.dispatch(todoActions.filter(e.target.value));
+})

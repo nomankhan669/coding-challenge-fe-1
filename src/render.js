@@ -10,7 +10,21 @@ function renderForm() {
 }
 
 function renderTodos(todoItems) {
-  return `<ul class="todos">${todoItems}</ul>`;
+  return `<div>
+    <span>
+      <input type="radio" name="filter" id="filter-all" data-element="todoFilter" value="all" />
+      <label for="filter-all">Show all</label>
+    </span>
+    <span>
+      <input type="radio" name="filter" id="filter-open" data-element="todoFilter" value="open" />
+      <label for="filter-open">Show open</label>
+    </span>
+    <span>
+      <input type="radio" name="filter" id="filter-closed" data-element="todoFilter" value="closed" />
+      <label for="filter-closed">Show closed</label>
+    </span>
+  </div>
+  <ul class="todos">${todoItems}</ul>`;
 }
 
 function renderTodoItem(todo) {
@@ -21,7 +35,10 @@ function renderTodoItem(todo) {
 }
 
 export default (element, state) => {
-  const todoItems = state.todos.map(renderTodoItem).join('');
+  let todoItems = state.todos.map(renderTodoItem).join('');
+  if (state.filteredTodos)
+    todoItems = state.filteredTodos.map(renderTodoItem).join('');
+  
   element.innerHTML = renderApp(
     renderForm(),
     renderTodos(todoItems)

@@ -48,5 +48,18 @@ export default (state = initialState, action) => {
         }
       }
       break;
+    case 'FILTER':
+      switch (action.status) {
+        case 'all':
+          state.filteredTodos = null;
+          break;
+        case 'open':
+          state.filteredTodos = state.todos.filter(todo => !todo.completed);
+          break;
+        case 'closed':
+          state.filteredTodos = state.todos.filter(todo => todo.completed);
+          break;
+      }
+      break;
   }
 }
