@@ -18,3 +18,8 @@ addListener('click', '[data-element="toggleTodo"]', e => {
   const id = Number(e.target.dataset.id);
   store.dispatch(todoActions.toggle(id));
 });
+
+addListener('keyup', '[data-element="addTodoInput"]', (e) => {
+  if (e.keyCode === 13)
+    document.querySelector('[data-element="addTodoButton"]').click();
+})
