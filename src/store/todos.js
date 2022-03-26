@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         title: action.title,
         completed: false
       });
-      break;
+      return {...state};
     case 'TOGGLE':
       for (let todo of state.todos) {
         if (todo.id === action.id) {
@@ -47,19 +47,18 @@ export default (state = initialState, action) => {
           break;
         }
       }
-      break;
+      return {...state};
     case 'FILTER':
       switch (action.status) {
         case 'all':
-          state.filteredTodos = null;
-          break;
+          return {...state, filteredTodos: state.todos};
         case 'open':
-          state.filteredTodos = state.todos.filter(todo => !todo.completed);
-          break;
+          return {...state, filteredTodos: state.todos.filter(todo => !todo.completed)};
         case 'closed':
-          state.filteredTodos = state.todos.filter(todo => todo.completed);
-          break;
+          return {...state, filteredTodos: state.todos.filter(todo => todo.completed)};
       }
       break;
+    default:
+      return state;
   }
 }
