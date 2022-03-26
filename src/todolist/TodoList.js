@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "../main.style";
 
 const TodoList = () => {
 
   const dispatch = useDispatch();
+  const classes = styles();
   const state = useSelector(state => state);
   const todos = state.filteredTodos || state.todos;
 
@@ -20,7 +22,7 @@ const TodoList = () => {
         ? todos.map(todo => (
             <li
               key={todo.id}
-              className={`todos__item todos__item_${todo.completed && "checked"}`}
+              className={`${classes.todoItem} todos__item todos__item_${todo.completed && `checked ${classes.todoItemChecked}`}`}
             >
               <input
                 type="checkbox"
@@ -28,6 +30,7 @@ const TodoList = () => {
                 data-id={todo.id}
                 defaultChecked={todo.completed ? " checked" : ""}
                 onClick={toggleTodo}
+                className={classes.todoItemCheckbox}
               />
               {todo.title}
             </li>
